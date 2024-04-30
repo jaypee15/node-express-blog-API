@@ -1,0 +1,21 @@
+// Check if user trying to access blog is same as author
+
+const asyncHandler = require("express-async-handler");
+const Post = require("../models/post");
+const ErrorObject = require("../utils/error");
+
+const sameAuthor = asyncHandler(async (req, res, next) => {
+  const { postId } = req.params;
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    next(new ErrorObject("Post not Found", 404));
+  }
+
+  if (post.authorId.toString() !== req.user.userId.toString()) {
+    next(new ErrorObject("You are not the author of this post", 401));
+  }
+});
+
+module.exports = sameAuthor;

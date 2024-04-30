@@ -1,4 +1,5 @@
 const express = require("express");
+const {protect, restrict} = require("../middlewares/index")
 
 const {
   findUserById,
@@ -6,16 +7,15 @@ const {
   deleteUserById,
   getAllUsers,
   createUser,
-  isUserAuthorized,
 } = require("../controllers/user");
 
 const router = express.Router();
 
 router
   .route("/:userId")
-  .get(findUserById)
-  .patch(isUserAuthorized, findUserByIdAndUpdate)
-  .delete(deleteUserById);
+  .get(protect, findUserById)
+  .patch(protect, findUserByIdAndUpdate)
+  .delete(protect, deleteUserById);
 
 router.route("/").get(getAllUsers).post(createUser);
 

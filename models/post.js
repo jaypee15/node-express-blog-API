@@ -13,14 +13,14 @@ const postSchema = new Schema(
     },
     featured_image: String,
     likes: String,
-    author: {
+    authorId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     comments: [
       {
-        author: {
+        authorId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
         },
