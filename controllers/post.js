@@ -1,4 +1,4 @@
-const post = require("../models/blog");
+const post = require("../models/post");
 
 const getAllposts = async (req, res, next) => {
   const posts = await post.find();
